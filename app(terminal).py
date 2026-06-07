@@ -14,7 +14,7 @@ def adicionar():    #CREATE
         rep = int(input(f"quantas repetições terá o exercicio {i+1}:"))
         dados_treino += f"[{exf}: {rep} rep] "
 
-    with open('treino.txt', 'a') as arquivo:
+    with open('treino.txt', 'w') as arquivo:
         arquivo.write(dados_treino + '\n')
 
 
@@ -34,10 +34,55 @@ def listar():   #READ
     except FileNotFoundError:
         print("Nenhum treino encontrado! ")
 
-def atualizar():  #UPDATE
+def atualizar():  # UPDATE
+    try:
+        treino = input("Digite o nome do treino que deseja atualizar: ")
 
+        arquivo = open('treino.txt', 'r')
+        treinos = arquivo.readlines()
+        arquivo.close()
+
+        encontrado = False
+
+        for i in range(len(treinos)):
+
+            if treino in treinos[i]:
+
+                print("\nDigite os novos dados do treino:")
+
+                nome = input("Nome do treino: ")
+                tipo = input("Tipo de treino: ")
+                ex = int(input(f"Quantos exercícios terá o treino {nome}?: "))
+
+                dados_treino = f"Treino: {nome} | Tipo: {tipo} | Exercícios: "
+
+                for j in range(ex):
+                    exf = input(f"Qual o exercício {j+1}: ")
+                    rep = int(input(f"Quantas repetições terá o exercício {j+1}: "))
+                    dados_treino += f"[{exf}: {rep} rep] "
+
+                treinos[i] = dados_treino + "\n"
+                encontrado = True
+                break
+
+        if encontrado:
+            arquivo = open('treino.txt', 'w')
+
+            for treino_atualizado in treinos:
+                arquivo.write(treino_atualizado)
+
+            arquivo.close()
+
+            print("Treino atualizado com sucesso!")
+
+        else:
+            print("Treino não encontrado.")
+
+    except FileNotFoundError:
+        print("Nenhum arquivo encontrado!")
 
 def treino_recomendado():
+    print("TIPOS DE TREINO\nSUPERIORES\nINFERIORES")
     tipo = input("tipo de treino: ").upper()
     if tipo == "SUPERIORES":
         superiores = [
@@ -63,7 +108,7 @@ def treino_recomendado():
         with open('treino.txt', 'a') as arquivo:
             arquivo.write(dados_treino + '\n')
     
-    if tipo == "INFERIORES":
+    elif tipo == "INFERIORES":
         inferiores = [
             {"exercicio": "Agachamento livre","series": 3, "reps":"8-12"},
             {"exercicio": "Leg press","series": 3, "reps":"8-12"},
@@ -73,7 +118,6 @@ def treino_recomendado():
             {"exercicio": "Gemeos(pé/sentado)","series": 4, "reps":"12-15"},
         ]
 
-
         nome = "Recomendado do Sistema"
         dados_treino = f"Treino: {nome} | Tipo: {tipo} | Exercicios: "
 
@@ -82,6 +126,8 @@ def treino_recomendado():
 
         with open('treino.txt', 'a') as arquivo:
             arquivo.write(dados_treino + '\n')
+    else:
+        pass
     
 def excluir():       #DELETE
 
@@ -120,9 +166,8 @@ while True:
         listar()
     
     elif opcao == 3:
-        listar()
         atualizar()
-
+        
     elif opcao == 4:
         excluir()
 
