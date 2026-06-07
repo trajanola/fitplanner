@@ -86,18 +86,18 @@ def treino_recomendado():
     tipo = input("tipo de treino: ").upper()
     if tipo == "SUPERIORES":
         superiores = [
-            {"exercicio": "Supino Reto","series": 3, "reps":"8-12"},
-            {"exercicio": "Supino Inclinado","series": 3, "reps":"8-12"},
-            {"exercicio": "Voador","series": 3, "reps":"8-12"},
-            {"exercicio": "Triceps Testa","series": 3, "reps":"8-12"},
-            {"exercicio": "Triceps Corda","series": 3, "reps":"8-12"},
-            {"exercicio": "Triceps Pulley","series": 3, "reps":"8-12"},
-            {"exercicio": "Puxada Frontal","series": 3, "reps":"8-12"},
-            {"exercicio": "Remada Baixa","series": 3, "reps":"8-12"},
-            {"exercicio": "Pulldown(polia)","series": 3, "reps":"8-12"},
-            {"exercicio": "Rosca Martelo com Halteres","series": 3, "reps":"8-12"},
-            {"exercicio": "Rosca Scott","series": 3, "reps":"8-12"},
-            {"exercicio": "Rosca Direta com Barra","series": 3, "reps":"8-12"},
+            {"Exercicio": "Supino Reto","series": 3, "reps":"8-12"},
+            {"Exercicio": "Supino Inclinado","series": 3, "reps":"8-12"},
+            {"Exercicio": "Voador","series": 3, "reps":"8-12"},
+            {"Exercicio": "Triceps Testa","series": 3, "reps":"8-12"},
+            {"Exercicio": "Triceps Corda","series": 3, "reps":"8-12"},
+            {"Exercicio": "Triceps Pulley","series": 3, "reps":"8-12"},
+            {"Exercicio": "Puxada Frontal","series": 3, "reps":"8-12"},
+            {"Exercicio": "Remada Baixa","series": 3, "reps":"8-12"},
+            {"Exercicio": "Pulldown(polia)","series": 3, "reps":"8-12"},
+            {"Exercicio": "Rosca Martelo com Halteres","series": 3, "reps":"8-12"},
+            {"Exercicio": "Rosca Scott","series": 3, "reps":"8-12"},
+            {"Exercicio": "Rosca Direta com Barra","series": 3, "reps":"8-12"},
         ]
 
         nome = "Recomendado do Sistema"
