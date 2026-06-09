@@ -112,4 +112,4 @@ Treino: <nome> | Tipo: <tipo> | Exercícios: <exercício>: <repetições>, ...
 
 ---
 
-Feito com 💪 pelo Grupo 8:
+Feito com 💪 pelo Grupo 8, CC | 2026.1
