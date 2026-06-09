@@ -113,9 +113,3 @@ Treino: <nome> | Tipo: <tipo> | Exercícios: <exercício>: <repetições>, ...
 ---
 
 Feito com 💪 pelo Grupo 8:
-- Matheus Trajano;
-- Mariana Melo;
-- Luiz Henrique;
-- Arthur Andrade;
-- Ricardo Bayma;
-- Lucas Nascimento.
