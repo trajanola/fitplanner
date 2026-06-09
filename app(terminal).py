@@ -210,7 +210,58 @@ def metas():
         print("Nenhum treino encontrado!")
 
 
+def metas():
+
+    goals = []
+
+    print("1 - adicionar metas")
+    print("2 - visualizar metas")
+    print("3 - finalizar/excluir metas")
+
+    acao = int(input("adicionar ou visualizar metas? "))
+    if acao == 1:
+        while True:
+            goal = input("definir metas (. para encerrar): ")
+            if goal == ".":
+                break
+            goals.append(goal)
+            with open("treino.txt", "a") as arquivo:
+                arquivo.write(goal + '\n')
+                
+    elif acao == 2:
+        with open("treino.txt", "r") as arquivo: 
+            print(arquivo.read())
+
+    elif acao == 3:
+        with open("treino.txt", "r") as arquivo:
+            goals = arquivo.readlines()
+
+        print("\nSuas metas atuais:")
+        for i in range(len(goals)):
+            print(f"{i + 1} - {goals[i].strip()}")
+
+        finish = input("\nQual meta deseja remover? ")
+
+        
+        meta_encontrada = False
+        for i in range(len(goals)):
+            if goals[i].strip() == finish:
+                goals.pop(i)
+                meta_encontrada = True
+                
+                with open("treino.txt", "w") as arquivo:
+                    for meta in goals:
+                        arquivo.write(meta)
+                
+                print("Meta finalizada/excluída com sucesso!")
+                break
+        
+        if not meta_encontrada:
+            print("Meta não encontrada.")
+                    
+
 while True:
+<<<<<<< HEAD
     try:
         print('\n1 - Adicionar treino')
         print('2 - Listar treinos')
@@ -219,9 +270,30 @@ while True:
         print('5 - Administrar Metas')
         print('6 - Treino recomendado')
         print('7 - Sair')
+=======
+    print('\n1 - Adicionar treino')
+    print('2 - Listar treinos')
+    print('3 - Atualizar treinos')
+    print('4 - Excluir treinos')
+    print('5 - Administrar Metas')
+    print('6 - Treino recomendado')
+    print('7 - Sair')
+    
+    opcao = int(input('Escolha as opções entre 1-7: '))    
+
+    if opcao == 1:
+        adicionar()
+    
+    elif opcao == 2:
+        listar()
+    
+    elif opcao == 3:
+        atualizar()
+>>>>>>> 2ffad76f2a64c8000a6c0248709e63a1f12ea9ed
         
         opcao = int(input('Escolha as opções entre 1-7: '))    
 
+<<<<<<< HEAD
         if opcao == 1:
             adicionar()
         
@@ -245,3 +317,13 @@ while True:
     
     except ValueError:
         print("Digite um número válido!")
+=======
+    elif opcao == 5:
+        metas()
+
+    elif opcao == 6:
+       treino_recomendado()
+
+    elif opcao == 7:
+        break
+>>>>>>> 2ffad76f2a64c8000a6c0248709e63a1f12ea9ed
