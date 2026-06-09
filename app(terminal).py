@@ -3,19 +3,22 @@ os.system('cls')
 
 
 def adicionar():    #CREATE
-    nome = input("nome do treino: ")
-    tipo = input("tipo de treino: ")
-    ex = int(input(f"quantas exercicios terá o treino {nome}?: "))
+    try:
+        nome = input("nome do treino: ")
+        tipo = input("tipo de treino: ")
+        ex = int(input(f"quantas exercicios terá o treino {nome}?: "))
 
-    dados_treino = f"Treino: {nome} | Tipo: {tipo} | Exercícios: "
+        dados_treino = f"Treino: {nome} | Tipo: {tipo} | Exercícios: "
 
-    for i in range(ex):
-        exf = input(f"qual o exercicio {i+1}: ")
-        rep = int(input(f"quantas repetições terá o exercicio {i+1}:"))
-        dados_treino += f"[{exf}: {rep} rep] "
+        for i in range(ex):
+            exf = input(f"qual o exercicio {i+1}: ")
+            rep = int(input(f"quantas repetições terá o exercicio {i+1}:"))
+            dados_treino += f"[{exf}: {rep} rep] "
 
-    with open('treino.txt', 'w') as arquivo:
-        arquivo.write(dados_treino + '\n')
+        with open('treino.txt', 'w') as arquivo:
+            arquivo.write(dados_treino + '\n')
+    except ValueError:
+        print("Erro: digite um número válido para a quantidade de exercícios ou repetições.")
 
 
 def listar():   #READ
@@ -79,7 +82,7 @@ def atualizar():  # UPDATE
             print("Treino não encontrado.")
 
     except FileNotFoundError:
-        print("Nenhum arquivo encontrado!")
+        print("Nenhum treino encontrado!")
 
 def treino_recomendado():
     print("TIPOS DE TREINO\nSUPERIORES\nINFERIORES")
@@ -130,49 +133,115 @@ def treino_recomendado():
         pass
     
 def excluir():       #DELETE
+    try:
+        treino = input("Digite o treino que deseja excluir: ")
+        arquivo = open('treino.txt', 'r')
+        treinos = arquivo.readlines()
+        arquivo.close()
+        for i in range(len(treino)):
 
-    treino = input("Digite o treino que deseja excluir: ")
-    arquivo = open('treino.txt', 'r')
-    treinos = arquivo.readlines()
-    arquivo.close()
-    for i in range(len(treino)):
+            if treino in treinos[i].strip():
+                treinos.pop(i)
+                
+                arquivo = open('treino.txt', 'w')
+                for j in range(len(treino)):
+                    arquivo.write("")
+                arquivo.close()
+                
+                print('Treino removido com sucesso!')
+            else:
+                print('Treino não encontrado.')
+    except FileNotFoundError:
+        print("Nenhum treino encontrado")
 
-        if treino in treinos[i].strip():
-            treinos.pop(i)
+def metas():
+    try:
+        goals = []
+
+        print("1 - adicionar metas")
+        print("2 - visualizar metas")
+        print("3 - finalizar/excluir metas")
+
+        acao = int(input("adicionar ou visualizar metas? "))
+        if acao == 1:
+            while True:
+                goal = input("definir metas (. para encerrar): ")
+                if goal == ".":
+                    break
+                goals.append(goal)
+                with open("treino.txt", "a") as arquivo:
+                    arquivo.write(goal + '\n')
+                    
+        elif acao == 2:
+            with open("treino.txt", "r") as arquivo: 
+                print(arquivo.read())
+
+        elif acao == 3:
+            with open("treino.txt", "r") as arquivo:
+                goals = arquivo.readlines()
+
+            print("\nSuas metas atuais:")
+            for i in range(len(goals)):
+                print(f"{i + 1} - {goals[i].strip()}")
+
+            finish = input("\nQual meta deseja remover? ")
+
             
-            arquivo = open('treino.txt', 'w')
-            for j in range(len(treino)):
-                arquivo.write("")
-            arquivo.close()
+            meta_encontrada = False
+            for i in range(len(goals)):
+                if goals[i].strip() == finish:
+                    goals.pop(i)
+                    meta_encontrada = True
+                    
+                    with open("treino.txt", "w") as arquivo:
+                        for meta in goals:
+                            arquivo.write(meta)
+                    
+                    print("Meta finalizada/excluída com sucesso!")
+                    break
             
-            print('Treino removido com sucesso!')
-        else:
-            print('Treino não encontrado.')
+            if not meta_encontrada:
+                print("Meta não encontrada.")
+
+    except ValueError:
+        print("Erro: digite um número válido!")
+
+    except FileNotFoundError:
+        print("Nenhum treino encontrado!")
+
 
 while True:
-    print('\n1 - Adicionar treino')
-    print('2 - Listar treinos')
-    print('3 - Atualizar treinos')
-    print('4 - Excluir treinos')
-    print('5 - Treino recomendado')
-    print('6 - Sair')
-    
-    opcao = int(input('Escolha as opções entre 1-6: '))    
-
-    if opcao == 1:
-        adicionar()
-    
-    elif opcao == 2:
-        listar()
-    
-    elif opcao == 3:
-        atualizar()
+    try:
+        print('\n1 - Adicionar treino')
+        print('2 - Listar treinos')
+        print('3 - Atualizar treinos')
+        print('4 - Excluir treinos')
+        print('5 - Administrar Metas')
+        print('6 - Treino recomendado')
+        print('7 - Sair')
         
-    elif opcao == 4:
-        excluir()
+        opcao = int(input('Escolha as opções entre 1-7: '))    
 
-    elif opcao == 5:
-       treino_recomendado()
+        if opcao == 1:
+            adicionar()
+        
+        elif opcao == 2:
+            listar()
+        
+        elif opcao == 3:
+            atualizar()
+            
+        elif opcao == 4:
+            excluir()
 
-    elif opcao == 6:
-        break
+        elif opcao == 5:
+            metas()
+
+        elif opcao == 6:
+            treino_recomendado()
+
+        elif opcao == 7:
+            break
+    
+    except ValueError:
+        print("Digite um número válido!")
